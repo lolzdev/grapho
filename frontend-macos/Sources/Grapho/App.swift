@@ -2,7 +2,7 @@ import AppKit
 import SwiftUI
 
 @main
-struct GraphoMacApp: App {
+struct GraphoApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     init() {

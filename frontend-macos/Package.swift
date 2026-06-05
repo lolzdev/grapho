@@ -3,17 +3,17 @@
 import PackageDescription
 
 let package = Package(
-    name: "GraphoMac",
+    name: "Grapho",
     platforms: [
         .macOS(.v13)
     ],
     products: [
-        .executable(name: "GraphoMac", targets: ["GraphoMac"])
+        .executable(name: "Grapho", targets: ["Grapho"])
     ],
     targets: [
         .executableTarget(
-            name: "GraphoMac",
-            path: "Sources/GraphoMac",
+            name: "Grapho",
+            path: "Sources/Grapho",
             linkerSettings: [
                 // Adjust these paths if your Cabal/GHC version emits a different library name or directory.
                 .unsafeFlags([

@@ -12,8 +12,11 @@ GTK_LIBS := $(shell $(PKG_CONFIG) --libs gtk4 2>/dev/null)
 
 CFLAGS ?= -Wall -Wextra -O2
 CPPFLAGS += -I$(ROOT)/ffi
-LDFLAGS += -L$(LIB_DIR) -Wl,-rpath,$(abspath $(LIB_DIR))
-LDLIBS += -lgrapho-core -lgrapho_runtime $(GTK_LIBS)
+LDFLAGS += -L$(LIB_DIR)
+# libgrapho-core.a is built with ghc -staticlib on Linux. Some GHC
+# installations may require extra system libs here, such as -pthread, -lm, or
+# -ldl, depending on how the RTS was built.
+LDLIBS += $(LIB_DIR)/libgrapho_runtime.a $(LIB_DIR)/libgrapho-core.a $(GTK_LIBS)
 
 SRCS := \
 	src/main.c \
