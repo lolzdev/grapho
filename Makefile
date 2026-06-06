@@ -7,6 +7,8 @@ GHC_STATIC_BUILD_DIR := $(BUILD_DIR)/ghc-static
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
   DYLIB_EXT := dylib
+  BREW_PREFIX := $(shell brew --prefix 2>/dev/null)
+  export PKG_CONFIG_PATH := $(BREW_PREFIX)/lib/pkgconfig:$(PKG_CONFIG_PATH)
 else
   DYLIB_EXT := so
 endif
@@ -25,7 +27,10 @@ core: core-linux
 endif
 
 core-macos: $(RUNTIME_LIB)
-	cd core && cabal v2-build --builddir=$(CABAL_BUILD_DIR)
+	cd core && cabal v2-build \
+		--builddir=$(CABAL_BUILD_DIR) \
+		--extra-include-dirs=$(BREW_PREFIX)/include \
+		--extra-lib-dirs=$(BREW_PREFIX)/lib
 	mkdir -p $(LIB_DIR)
 	find $(CABAL_BUILD_DIR) -name 'libgrapho-core*.$(DYLIB_EXT)' -exec cp {} $(LIB_DIR)/ \;
 

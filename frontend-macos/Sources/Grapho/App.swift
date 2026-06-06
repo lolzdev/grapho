@@ -14,6 +14,21 @@ struct GraphoApp: App {
             ContentView()
                 .frame(minWidth: 520, minHeight: 360)
         }
+        .commands {
+            CommandGroup(after: .toolbar) {
+                Divider()
+
+                Button("Zoom In") {
+                    GraphoBridge.zoomIn()
+                }
+                .keyboardShortcut("=", modifiers: .command)
+
+                Button("Zoom Out") {
+                    GraphoBridge.zoomOut()
+                }
+                .keyboardShortcut("-", modifiers: .command)
+            }
+        }
     }
 }
 
